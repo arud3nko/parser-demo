@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Парсинг АВИТО - объявления, номера телефонов</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="{{ url_for('static', filename='images/icons/favicon.ico') }}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='fonts/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='fonts/Linearicons-Free-v1.0.0/icon-font.min.css') }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+<!--===============================================================================================-->
+</head>
+<body background="{{url_for('static', filename='fon1.jpg')}}" style="background-position: center;">
+
+
+	<div class="container-contact100">
+		<div class="wrap-contact100">
+			<form class="contact100-form" action="/{{variable}}" method="post" autocomplete="off">
+				<span class="contact100-form-title">
+					Парсинг АВИТО | Объявления и номера телефонов онлайн
+				</span>
+
+				<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+					<label class="label-input100" for="email">
+						<img src="{{ url_for('static', filename='images/icons/symbol-01.png') }}" alt="SYMBOL-MAIL">
+					</label>
+					<input id="email" class="input100" type="text" name="mail" placeholder="Email-адрес, на который будет отправлен итог">
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="wrap-input100 validate-input" data-validate = "Message is required">
+					<textarea class="input100" name="address" placeholder="Ссылка на нужный раздел АВИТО. Пример: https://www.avito.ru/sayanogorsk/vakansii/"></textarea>
+					<span class="focus-input100"></span>
+				</div>
+
+				<div class="container-contact100-form-btn">
+					<button class="contact100-form-btn" type="submit">
+						Начать Парсинг
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+
+
+	<div id="dropDownSelect1"></div>
+
+</body>
+</html>

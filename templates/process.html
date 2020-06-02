@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Парсинг АВИТО - объявления, номера телефонов</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="{{ url_for('static', filename='images/icons/favicon.ico') }}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='fonts/font-awesome-4.7.0/css/font-awesome.min.css') }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='fonts/Linearicons-Free-v1.0.0/icon-font.min.css') }}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+<!--===============================================================================================-->
+</head>
+<body background="{{url_for('static', filename='fon1.jpg')}}" style="background-position: center;">
+
+	<div class="container-contact100">
+		<div class="wrap-contact100">
+			<form class="contact100-form" action="/process{{variable}}" method="post" autocomplete="off">
+				<span class="contact100-form-title" id="prog" style="font-size: 27px; text-align:center; margin-bottom:20px;">
+					Пожалуйста, не закрывайте страницу
+				</span>
+				<span class="contact100-form-title" id="processo" style="font-size: 14pt; text-align:center; margin-top:0; margin-bottom:0;">Запускаем парсер...</span>
+
+				<div id="Progress_Status">
+  			<div id="myprogressBar"></div>
+				</div>
+<!--
+				<div class="wrap-input100 validate-input" data-validate = "Message is required">
+					<textarea class="input100" id="logarea" style="height:600px;"></textarea>
+		</div> -->
+
+				<style>
+						#Progress_Status {
+						  width: 100%;
+						  background-color: #ddd;
+						  margin-bottom: 13px;
+						  border-radius: 8px;
+						}
+
+						#myprogressBar {
+						  width: 2%;
+						  height: 30px;
+						  background-color: #e3ac22;
+						  border-radius: 8px;
+						}
+				</style>
+
+				<script>
+				  function scene(var1) {
+					var element = document.getElementById("myprogressBar");
+					  var width = var1;
+					  element.style.width = width + '%';
+					}
+
+				</script>
+
+
+					<div class="container-contact100-form-btn" style="margin-bottom: 0; margin-top: 5px;">
+					<button class="contact100-form-btn" type="button" onclick="location.href='/'" id="onmain">
+						На Главную
+					</button>
+				</div>
+
+			</form>
+	</div></div>
+
+
+
+
+	<div id="dropDownSelect1"></div>
+
+
+	<script>
+
+	  var x = document.getElementById("onmain");
+      x.style.display = "none";
+
+    var latest = document.getElementById('processo');
+    var output = document.getElementById('logarea');
+    var main = document.getElementById('prog');
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '{{ url_for('stream') }}', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.send('address={{address}}&mail={{mail}}');
+    var position = 0;
+	var prog_i = 4;
+    function handleNewData() {
+
+        var messages = xhr.responseText.split('\n');
+        messages.slice(position, -1).forEach(function(value) {
+            latest.textContent = value;
+            if (prog_i >=100) {prog_i = 4;} else {
+            scene(prog_i);
+        	prog_i = prog_i + 3;}// update the latest value in place
+            // build and append a new item to a list to log all output
+			//output.value += value + '\n';
+        });
+
+        position = messages.length - 1;
+    }
+
+    var timer;
+
+    timer = setInterval(function() {
+        // check the response for new data
+        handleNewData();
+        // stop checking once the response has ended
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+            clearInterval(timer);
+            latest.textContent = 'Страница более не активна';
+            main.textContent = 'Парсинг завершен! Проверьте почту';
+            x.style.display = "block";
+            scene(100);
+        }
+    }, 1000);
+	</script>
+
+</body>
+</html>
