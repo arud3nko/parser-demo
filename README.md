@@ -9,7 +9,7 @@
 - Отправка итогового документа на введенный e-mail адрес
 
 Установка и использование:<br>
-<code>git clone https://github.com/arud3nko/av-parser-demo.git</code><br>
+<code>git clone https://github.com/arud3nko/parser-demo.git</code><br>
 <code>apt-get install tesseract-ocr</code><br>
 <code>pip3 install -r requirements.txt</code><br>
 <code>python3 start.py</code><br>
